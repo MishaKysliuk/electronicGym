@@ -17,7 +17,6 @@
 
     <!-- Angular JS -->
     <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-    <script src="<c:url value="/resources/js/controller.js" /> "></script>
 
     <%--Jquery--%>
     <script type="text/javascript" src="<c:url value="/resources/js/jquery-3.1.1.min.js" />"></script>

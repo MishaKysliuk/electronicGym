@@ -23,8 +23,13 @@ public class ExerciseCategoryResources {
     private ExerciseCategoryService exerciseCategoryService;
 
 
+    /**
+     * Saves the exercise category into database and returns the refreshed list of categories back to angular part.
+     * @param categoryName name of category to be saved
+     * @return refreshed list of categories
+     */
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public @ResponseBody List<ExerciseCategory> addCategory (@RequestParam("categoryName") String categoryName, Model model) {
+    public @ResponseBody List<ExerciseCategory> addCategory (@RequestParam("categoryName") String categoryName) {
         ExerciseCategory exerciseCategory = new ExerciseCategory();
         exerciseCategory.setName(categoryName);
         exerciseCategoryService.addCategory(exerciseCategory);
@@ -32,15 +37,25 @@ public class ExerciseCategoryResources {
         return categoryList;
     }
 
+    /**
+     * init method that returns list of exercise categories to angular js part
+     * @return list of categories
+     */
     @RequestMapping(value = "/init", method = RequestMethod.GET)
     public @ResponseBody List<ExerciseCategory> initCategories () {
         return exerciseCategoryService.getExerciseCategoryList();
     }
 
+    /**
+     * Exception handler for bad requests
+     */
     @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Illegal request, please verify your payload.")
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Illegal request.")
     public void handleClientErrors (Exception e) {}
 
+    /**
+     * Exception handler for internal server error
+     */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Internal Server Error.")
     public void handleServerErrors (Exception e) {}

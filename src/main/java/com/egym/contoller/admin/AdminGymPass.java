@@ -33,6 +33,9 @@ public class AdminGymPass {
     @Autowired
     private GymPassService gymPassService;
 
+    /**
+     * Request mapping method for adding gym pass.
+     */
     @RequestMapping("/gymPass/addGymPass")
     public String addGymPass(Model model){
         GymPass gymPass = new GymPass();
@@ -42,6 +45,12 @@ public class AdminGymPass {
         return "addGymPass";
     }
 
+    /**
+     * POST method for adding gym pass. Adds gym pass to db using service and copies image of gym pass to local directory.
+     * @param gymPass gym pass from model
+     * @param result binding result from validation
+     * @param request http servlet request
+     */
     @RequestMapping(value = "/gymPass/addGymPass", method = RequestMethod.POST)
     public String addGymPassPost(@Valid @ModelAttribute("gymPass") GymPass gymPass, BindingResult result, HttpServletRequest request){
         if (result.hasErrors()){
@@ -58,6 +67,10 @@ public class AdminGymPass {
         return "redirect:/admin/gymPassInventory";
     }
 
+    /**
+     * Request mapping method for editing gym pass
+     * @param passId id of edited gym pass
+     */
     @RequestMapping("/gymPass/editGymPass/{passId}")
     public String editGymPass(@PathVariable int passId, Model model){
         GymPass gymPass = gymPassService.getGymPassById(passId);
@@ -67,6 +80,12 @@ public class AdminGymPass {
         return "editGymPass";
     }
 
+    /**
+     * POST method for saving gym pass into db while editing is finished. Copies image to local directory.
+     * @param gymPass gym pass from model
+     * @param result binding result from validation
+     * @param request http servlet request
+     */
     @RequestMapping(value = "/gymPass/editGymPass/{passId}", method = RequestMethod.POST)
     public String editGymPass(@Valid @ModelAttribute("gymPass") GymPass gymPass, BindingResult result, Model model, HttpServletRequest request){
         if (result.hasErrors()){
@@ -80,6 +99,11 @@ public class AdminGymPass {
         return "redirect:/admin/gymPassInventory";
     }
 
+    /**
+     * Request mapping for deleting gym pass. Also deletes gym pass image
+     * @param passId id of deleted gym pass
+     * @param request http servlet request
+     */
     @RequestMapping("/gymPass/deleteGymPass/{passId}")
     public String deleteGymPass(@PathVariable int passId, Model model, HttpServletRequest request){
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");

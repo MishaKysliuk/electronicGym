@@ -10,12 +10,30 @@ import java.util.List;
  */
 public interface WorkoutService {
 
+    /**
+     * Add new workout to database.
+     * @param workout new workout
+     */
     void addWorkout(Workout workout);
 
+    /**
+     * Edit existed workout into database
+     * @param workout existed workout
+     */
     void editWorkout(Workout workout);
 
+    /**
+     * Retrieve workouts from database by certain client
+     * @param client certain client
+     * @return list of workouts
+     */
     List<Workout> getWorkoutsByClient(Client client);
 
+    /**
+     * Retrieve last workout by date of certain client from database
+     * @param client certain client
+     * @return last workout or null if client has no workouts
+     */
     Workout getLatestWorkoutByClient(Client client);
 
 }

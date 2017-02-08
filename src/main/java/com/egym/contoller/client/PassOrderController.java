@@ -7,7 +7,6 @@ import com.egym.model.Payment;
 import com.egym.service.ClientService;
 import com.egym.service.GymPassService;
 import com.egym.service.PassOrderService;
-import com.egym.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -36,11 +35,13 @@ public class PassOrderController {
     private ClientService clientService;
 
     @Autowired
-    private PaymentService paymentService;
-
-    @Autowired
     private PassOrderService passOrderService;
 
+
+    /**
+     * Request mapping method for ordering gym pass. If client have already got gym pass the appropriate text is shown.
+     * @param passId id of chosen gym pass
+     */
     @RequestMapping("/gymPass/orderGymPass/{passId}")
     public String orderGymPass(@PathVariable(name = "passId") int passId, Model model, @AuthenticationPrincipal User activeUser){
         model.addAttribute("passId", passId);
@@ -51,6 +52,13 @@ public class PassOrderController {
         model.addAttribute("payment", payment);
         return "orderGymPass";
     }
+
+    /**
+     * POST method for ordering gym pass. Saves the info of pass order operation into database and refreshes client info.
+     * @param payment payment from spring model
+     * @param passId id of chosen gym pass
+     * @param result binding result from validation
+     */
     @RequestMapping(value = "/gymPass/orderGymPass/{passId}", method = RequestMethod.POST)
     public String orderGymPass(@Valid @ModelAttribute("payment") Payment payment, @PathVariable(name = "passId") int passId,
                                BindingResult result, Model model, @AuthenticationPrincipal User activeUser){

@@ -9,10 +9,22 @@ import java.util.List;
  */
 public interface ExerciseCategoryService {
 
+    /**
+     * Add new category to database.
+     * @param category new category
+     */
     void addCategory(ExerciseCategory category);
 
+    /**
+     * Retrieve all exercise categories from database.
+     * @return categories list
+     */
     List<ExerciseCategory> getExerciseCategoryList();
 
+    /**
+     * Retrieve exercise category by its id from database.
+     * @param id id of exercise category
+     * @return appropriate category
+     */
     ExerciseCategory getExerciseCategoryById(int id);
-
 }

@@ -10,8 +10,9 @@ import java.nio.file.Path;
  */
 public class FileHelper {
     /**
-     * Need to transfer this method to util class
-     * @param gymPassImage
+     * Copies multipart file to new file.
+     * @param gymPassImage multipart file with image
+     * @param destination destination path of new file
      */
     public static void transferFile(MultipartFile gymPassImage, Path destination) {
         if(gymPassImage != null && !gymPassImage.isEmpty()){

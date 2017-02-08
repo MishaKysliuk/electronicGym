@@ -23,18 +23,31 @@ public class WorkoutDaoImpl implements WorkoutDao{
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Add new workout to database.
+     * @param workout new workout
+     */
     public void addWorkout(Workout workout) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(workout);
         session.flush();
     }
 
+    /**
+     * Edit existed workout into database
+     * @param workout existed workout
+     */
     public void editWorkout(Workout workout) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(workout);
         session.flush();
     }
 
+    /**
+     * Retrieve workouts from database by certain client
+     * @param client certain client
+     * @return list of workouts
+     */
     public List<Workout> getWorkoutsByClient(Client client) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Workout where clientId = ?");
@@ -44,6 +57,11 @@ public class WorkoutDaoImpl implements WorkoutDao{
         return workouts;
     }
 
+    /**
+     * Retrieve last workout by date of certain client from database
+     * @param client certain client
+     * @return last workout or null if client has no workouts
+     */
     public Workout getLatestWorkoutByClient(Client client) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Workout where clientId = ? ORDER BY workoutDate DESC");

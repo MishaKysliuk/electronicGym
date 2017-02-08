@@ -25,11 +25,22 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    /**
+     * Request mapping for home page
+     */
     @RequestMapping("/")
     public String home(){
         return "home";
     }
 
+    /**
+     * Request mapping for login page. If there is error the appropriate text is shown.
+     * If user log out the appropriate text is shown.
+     * @param error
+     * @param logout
+     * @param model
+     * @return
+     */
     @RequestMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout, Model model){
@@ -42,6 +53,9 @@ public class HomeController {
         return "login";
     }
 
+    /**
+     * Request mapping for contacts page
+     */
     @RequestMapping("/contacts")
     public String about() {
         return "contacts";

@@ -16,9 +16,6 @@
     </bean>
 
 
-
-
-
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="hibernateProperties">
@@ -56,6 +53,7 @@
         <security:logout
                 logout-success-url="/login?logout"/>
     </security:http>
+
     <security:authentication-manager>
         <security:authentication-provider>
             <security:jdbc-user-service

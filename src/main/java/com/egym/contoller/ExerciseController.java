@@ -20,6 +20,10 @@ public class ExerciseController {
     @Autowired
     private ExerciseService exerciseService;
 
+    /**
+     * Request mapping for exercise info page.
+     * @param exerciseId id of exercise to be shown
+     */
     @RequestMapping("/exercises/viewExercise/{exerciseId}")
     public String viewExercise(@PathVariable int exerciseId, Model model) {
         Exercise exercise = exerciseService.getExerciseById(exerciseId);

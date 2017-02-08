@@ -9,28 +9,7 @@
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
 
-<script>
-    $(document).ready(function () {
-        $('.nav-toggle').click(function () {
-            //get collapse content selector
-            var collapse_content_selector = $(this).attr('href');
-
-            //make the collapse content to be shown or hide
-            var toggle_switch = $(this);
-            $(collapse_content_selector).toggle(function () {
-                if ($(this).css('display') == 'none') {
-                    //change the button label to be 'Show'
-                    toggle_switch.html('Add new category');
-                } else {
-                    //change the button label to be 'Hide'
-                    toggle_switch.html('Hide');
-                }
-            });
-        });
-
-    });
-</script>
-
+<script src="<c:url value="/resources/js/toggler.js" /> "></script>
 <script src="<c:url value="/resources/js/addCategoryController.js" /> "></script>
 
 
@@ -54,7 +33,8 @@
                     <div class="form-group">
                         <label for="category">Category</label>
                         <form:select id="category" path="exerciseCategory">
-                            <form:option ng-repeat = "category in categoryList" value="{{category.categoryId}}">{{category.name}}</form:option>
+                            <%--<form:option ng-repeat = "category in categoryList" value="{{category.categoryId}}">{{category.name}}</form:option>--%>
+                            <form:option ng-repeat = "category in categoryList" value="{{category.name}}">{{category.name}}</form:option>
                         </form:select>
                     </div>
                     <div>

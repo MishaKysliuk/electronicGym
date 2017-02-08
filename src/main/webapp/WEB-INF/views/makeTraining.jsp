@@ -2,19 +2,9 @@
 <%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
-<script>
-    $(document).ready(function () {
-        var searchCondition = '${searchCondition}';
-
-        $('#searchable').DataTable({
-            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
-            "oSearch": {"sSearch": searchCondition}
-        });
-    });
-</script>
-
 
 <script src="<c:url value="/resources/js/makeTrainingController.js" /> "></script>
+<script src="<c:url value="/resources/js/dataTable.js" /> "></script>
 
 
 <div class="container-wrapper">
@@ -28,7 +18,7 @@
         <div ng-app="makeTrainingApp">
             <div ng-controller="makeTrainingCtrl" ng-init="init()">
 
-                <table class="table table-striped table-hover" id="searchable" ng-init="initTable()">
+                <table class="table table-striped table-hover" id="data-table" ng-init="initTable()">
                     <thead>
                     <tr class="bg-success">
                         <th>Name</th>
@@ -43,7 +33,7 @@
                             <td>${exercise.exerciseCategory}</td>
                             <td></td>
                             <td>
-                                <a href="#" ng-click="addExercise('${exercise.exerciseId}', '${clientId}')"><span
+                                <a href="#" ng-click="addExercise('${exercise.exerciseId}')"><span
                                         class="glyphicon glyphicon-plus-sign"/></a></td>
                         </tr>
                     </c:forEach>
@@ -60,8 +50,8 @@
                     </thead>
                     <tr ng-repeat="item in itemList">
                         <td>{{item.exercise.exerciseName}}</td>
-                        <td><input type="text" ng-model="item.sets" ng-change="calculateTime()" production-qty/></td>
-                        <td><input type="text" ng-model="item.reps" ng-change="calculateTime()" production-qty/></td>
+                        <td><input type="text" ng-model="item.sets" ng-change="calculateTime()" numeric/></td>
+                        <td><input type="text" ng-model="item.reps" ng-change="calculateTime()" numeric/></td>
                         <td><input type="text" ng-model="item.weight" production-qty/></td>
                     </tr>
                     <tr>

@@ -7,6 +7,10 @@ import com.egym.model.PassOrder;
  */
 public interface PassOrderDao {
 
+    /**
+     * Add new pass order to database. Payment record is also saved in db.
+     * @param passOrder new pass order
+     */
     void addPassOrder(PassOrder passOrder);
 
 }

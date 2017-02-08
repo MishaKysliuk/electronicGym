@@ -7,10 +7,13 @@ clientTrainingTimeApp.controller("clientTrainingTimeCtrl", function ($scope, $ht
     $scope.disabledTime = [];
 
 
+    /**
+     * init method for disabling time by today date. Gets disabled time array from spring controller
+     */
     $scope.init = function () {
         var date = dateToString(new Date());
 
-        $http.post('/eGym/rest/clientTrainingTime/disabledTime', date).success(function (result) {
+        $http.get('/eGym/rest/clientTrainingTime/disabledTime', date).success(function (result) {
             $scope.disabledTime = createArray(result);
             $(document).ready(function () {
                 $('#timepicker').timepicker('option', 'disableTimeRanges', $scope.disabledTime);
@@ -19,8 +22,12 @@ clientTrainingTimeApp.controller("clientTrainingTimeCtrl", function ($scope, $ht
 
     };
 
+    /**
+     * Updates disabled time by sending chosen date to spring controller and retrieving new disabled time array
+     * @param date chosen date
+     */
     $scope.updateData = function (date) {
-        $http.post('/eGym/rest/clientTrainingTime/disabledTime', date).success(function (result) {
+        $http.get('/eGym/rest/clientTrainingTime/disabledTime', date).success(function (result) {
             $scope.disabledTime = createArray(result);
             $(function () {
                 $('#timepicker').timepicker('option', 'disableTimeRanges', $scope.disabledTime);
@@ -30,12 +37,13 @@ clientTrainingTimeApp.controller("clientTrainingTimeCtrl", function ($scope, $ht
 
 });
 
-/**
- * PS}DA{PSDASKDOPSKADPOKASPODKAPOSDK
- * @param temp
- * @returns {Array}
- */
 
+/**
+ * Creates two-dimensional array from one-dimensional in order to disable time into timepicker.
+ * The row of result array consists of ['from time', 'to time'].
+ * @param temp one-dimensional array
+ * @returns two-dimensional array
+ */
 var createArray = function (temp) {
     var result = [];
     var indexOfResultArray = 0;
@@ -48,6 +56,11 @@ var createArray = function (temp) {
     return result;
 };
 
+/**
+ * Converts date to string
+ * @param date date to convert
+ * @returns {string}
+ */
 var dateToString = function (date) {
     var mm = date.getMonth() + 1; // getMonth() is zero-based
     var dd = date.getDate();

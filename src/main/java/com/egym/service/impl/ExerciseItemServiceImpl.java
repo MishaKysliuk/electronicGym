@@ -17,18 +17,35 @@ public class ExerciseItemServiceImpl implements ExerciseItemService{
     @Autowired
     private ExerciseItemDao exerciseItemDao;
 
+    /**
+     * Add new exercise item to database
+     * @param exerciseItem new exercise item
+     */
     public void addExerciseItem(ExerciseItem exerciseItem) {
         exerciseItemDao.addExerciseItem(exerciseItem);
     }
 
+    /**
+     * Retrieve exercise items from database by workout id
+     * @param workoutId workoutId of exercise items
+     * @return list of exercise items
+     */
     public List<ExerciseItem> getItemsByWorkoutId(int workoutId) {
         return exerciseItemDao.getItemsByWorkoutId(workoutId);
     }
 
+    /**
+     * Remove exercise item from database
+     * @param exerciseItem item to be removed
+     */
     public void removeExerciseItem(ExerciseItem exerciseItem) {
         exerciseItemDao.removeExerciseItem(exerciseItem);
     }
 
+    /**
+     * Edit existed exercise item in database
+     * @param exerciseItem existed item
+     */
     public void editExerciseItem(ExerciseItem exerciseItem) {
         exerciseItemDao.editExerciseItem(exerciseItem);
     }

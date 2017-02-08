@@ -21,6 +21,9 @@ public class GymPassController {
     @Autowired
     private GymPassService gymPassService;
 
+    /**
+     * Request mapping for gym passes page. List of gym passes is added to spring model.
+     */
     @RequestMapping("/passList")
     public String getProducts(Model model) {
         List<GymPass> gymPasses = gymPassService.getGymPassList();
@@ -29,6 +32,11 @@ public class GymPassController {
         return "passList";
     }
 
+    /**
+     * Request mapping for gym pass info page.
+     * @param passId id of pass to be shown
+     * @throws IOException
+     */
     @RequestMapping("/viewPass/{passId}")
     public String viewProduct(@PathVariable int passId, Model model) throws IOException {
         GymPass gymPass = gymPassService.getGymPassById(passId);

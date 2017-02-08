@@ -8,8 +8,17 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by MichaelMAC on 15.01.17.
  */
+
+/**
+ * Class converts string to local time that is used in spring.
+ */
 public class StringToLocalTime implements Converter<String, LocalTime> {
 
+    /**
+     * Convets string to local time
+     * @param s string
+     * @return local time
+     */
     public LocalTime convert(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String time = s.substring(0,5);

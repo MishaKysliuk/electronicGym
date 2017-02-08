@@ -1,5 +1,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<script src="<c:url value="/resources/js/dataTable.js" /> "></script>
 <%@include file="/WEB-INF/views/template/header.jsp"%>
 
 
@@ -11,7 +12,7 @@
             <p class="lead">This is the trainer management page.</p>
         </div>
 
-        <table class="table table-striped table-hover">
+        <table id="data-table" class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
                 <th>Name</th>

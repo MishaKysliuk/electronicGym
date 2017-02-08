@@ -22,7 +22,6 @@
           class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <list>
-                <bean class="com.egym.model.converters.StringToExerciseCategory"/>
                 <bean class="com.egym.model.converters.LocalDateToString"/>
                 <bean class="com.egym.model.converters.LocalTimeToString"/>
                 <bean class="com.egym.model.converters.StringToLocalDate"/>

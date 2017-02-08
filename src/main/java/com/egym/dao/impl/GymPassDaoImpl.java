@@ -22,18 +22,32 @@ public class GymPassDaoImpl implements GymPassDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+
+    /**
+     * Add new gym pass to database
+     * @param gymPass new gym pass
+     */
     public void addGymPass(GymPass gymPass) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(gymPass);
         session.flush();
     }
 
+    /**
+     * Edit existed gym pass in database
+     * @param gymPass existed pass
+     */
     public void editGymPass(GymPass gymPass) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(gymPass);
         session.flush();
     }
 
+    /**
+     * Retrieve gym pass from database by its id
+     * @param id id of gym pass
+     * @return appropriate gym pass
+     */
     public GymPass getGymPassById(int id) {
         Session session = sessionFactory.getCurrentSession();
         GymPass gymPass = (GymPass)session.get(GymPass.class, id);
@@ -41,6 +55,10 @@ public class GymPassDaoImpl implements GymPassDao {
         return gymPass;
     }
 
+    /**
+     * Retrieve all gym passes from database
+     * @return list of gym passes
+     */
     public List<GymPass> getGymPassList() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from GymPass");
@@ -49,6 +67,10 @@ public class GymPassDaoImpl implements GymPassDao {
         return gymPasses;
     }
 
+    /**
+     * Delete existed gym pass from database.
+     * @param gymPass existed pass
+     */
     public void deleteGymPass(GymPass gymPass) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(gymPass);

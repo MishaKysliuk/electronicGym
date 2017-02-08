@@ -36,6 +36,11 @@ public class ClientController {
     @Autowired
     private WorkoutService workoutService;
 
+
+    /**
+     * Request mapping method for client pass info method. If client bought a gym pass the appropriate text is shown.
+     * @param paymentSuccess Not null if client bought a gym pass
+     */
     @RequestMapping("/clientPassInfo")
     public String clientPassInfo(@RequestParam(value = "paymentSuccess", required = false) String paymentSuccess,
                                  Model model, @AuthenticationPrincipal User activeUser){
@@ -47,6 +52,10 @@ public class ClientController {
         return "clientPassInfo";
     }
 
+    /**
+     * Request mapping method from client personal card. If client saved info the appropriate text is shown.
+     * @param savedSuccessful Not null if client saved info
+     */
     @RequestMapping("/clientPersonalCard")
     public String clientPersonalCard(@RequestParam(value = "savedSuccessful", required = false) String savedSuccessful,
             Model model, @AuthenticationPrincipal User activeUser) {
@@ -62,6 +71,11 @@ public class ClientController {
 
     }
 
+    /**
+     * POST method for saving client personal card info. Info is saved into database.
+     * @param card ClientPersonalCard from spring model
+     * @param result binding result from validation
+     */
     @RequestMapping(value = "/clientPersonalCard", method = RequestMethod.POST)
     public String editGymPass(@Valid @ModelAttribute("card") ClientPersonalCard card, BindingResult result, Model model,
                               @AuthenticationPrincipal User activeUser){
@@ -74,6 +88,11 @@ public class ClientController {
         return "redirect:/client/clientPersonalCard?savedSuccessful";
     }
 
+    /**
+     * Request mapping page for star training. Checks whether client info is filled and trainer is chosen. If not,
+     * the appropriate text is shown. If client already waiting for training, the appropriate text is shown.
+     * Workout object is added to spring model if everything is fine.
+     */
     @RequestMapping("/startTraining")
     public String startTraining(Model model, @AuthenticationPrincipal User activeUser){
 
@@ -102,6 +121,11 @@ public class ClientController {
         return "startTraining";
     }
 
+    /**
+     * POST method for start training. Saves data of workout into database. Also refreshes client need to create workout field in database.
+     * @param workout Workout from spring model
+     * @param result binding result from validation
+     */
     @RequestMapping(value = "/startTraining", method = RequestMethod.POST)
     public String startTraining(@ModelAttribute("workout")Workout workout, BindingResult result, @AuthenticationPrincipal User activeUser, Model model){
         if (result.hasErrors()){

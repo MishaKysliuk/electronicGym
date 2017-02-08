@@ -24,12 +24,20 @@ public class ExerciseCategoryDaoImpl implements ExerciseCategoryDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Add new category to database.
+     * @param category new category
+     */
     public void addCategory(ExerciseCategory category) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(category);
         session.flush();
     }
 
+    /**
+     * Retrieve all exercise categories from database.
+     * @return categories list
+     */
     public List<ExerciseCategory> getExerciseCategoryList() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from ExerciseCategory");
@@ -38,6 +46,11 @@ public class ExerciseCategoryDaoImpl implements ExerciseCategoryDao {
         return exerciseCategories;
     }
 
+    /**
+     * Retrieve exercise category by its id from database.
+     * @param id id of exercise category
+     * @return appropriate category
+     */
     public ExerciseCategory getExerciseCategoryById(int id) {
         Session session = sessionFactory.getCurrentSession();
         ExerciseCategory exerciseCategory = (ExerciseCategory)session.get(ExerciseCategory.class, id);

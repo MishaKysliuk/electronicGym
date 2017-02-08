@@ -7,12 +7,20 @@ makeTrainingApp.controller("makeTrainingCtrl", function ($scope, $http){
 
     $scope.time = '00:00:00';
 
-    $scope.addExercise = function (exerciseId, clientId) {
-        $http.post('/eGym/rest/exerciseItem/add/'+exerciseId, $scope.itemList, {params: {'clientId' : clientId}}).success(function (data) {
+    /**
+     * Adds exercise item to workout. Sends chosen exercise to spring controller and gets refreshed list from it.
+     * @param exerciseId if of chosen exercise.
+     */
+    $scope.addExercise = function (exerciseId) {
+        $http.post('/eGym/rest/exerciseItem/add/'+exerciseId, $scope.itemList).success(function (data) {
             $scope.itemList = data;
         });
     };
 
+    /**
+     * Method for saving workout. Send the data to spring controller.
+     * @param clientId
+     */
     $scope.saveWorkout = function (clientId) {
         var duration = $scope.calculateTime();
         console.log(duration);
@@ -21,6 +29,10 @@ makeTrainingApp.controller("makeTrainingCtrl", function ($scope, $http){
             alert('Workout was added successful!')
         });
     };
+
+    /**
+     * Init method. Gets data from spring controller
+     */
     $scope.init = function () {
 
         $http.get('/eGym/rest/exerciseItem/init').success(function (data) {
@@ -29,6 +41,10 @@ makeTrainingApp.controller("makeTrainingCtrl", function ($scope, $http){
     };
 
 
+    /**
+     * Method for calculating total time of workout in seconds.
+     * @returns total time in seconds
+     */
     $scope.calculateTime = function () {
         var totalSeconds = 0;
         for (var i=0; i<$scope.itemList.length; i++) {
@@ -40,7 +56,10 @@ makeTrainingApp.controller("makeTrainingCtrl", function ($scope, $http){
     }
 });
 
-makeTrainingApp.directive('productionQty', function() {
+/**
+ * Directive to forbid entering non-numeric characters
+ */
+makeTrainingApp.directive('numeric', function() {
     return {
         require: 'ngModel',
         link: function (scope, element, attr, makeTrainingCtrl) {
@@ -57,6 +76,10 @@ makeTrainingApp.directive('productionQty', function() {
     };
 });
 
+/**
+ * Converts seconds to HH:MM:SS string of time
+ * @returns {string} of time
+ */
 String.prototype.toHHMMSS = function () {
     var sec_num = parseInt(this, 10); // don't forget the second param
     var hours   = Math.floor(sec_num / 3600);

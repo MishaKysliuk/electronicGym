@@ -23,11 +23,17 @@ public class AdminHome {
     @Autowired
     private ClientService clientService;
 
+    /**
+     * Request mapping method for admin page
+     */
     @RequestMapping
     public String adminPage() {
         return "admin";
     }
 
+    /**
+     * Request mapping method for gym pass inventory. Adds list of gym passes to spring model
+     */
     @RequestMapping("/gymPassInventory")
     public String productInventory(Model model) {
         List<GymPass> products = gymPassService.getGymPassList();
@@ -36,6 +42,9 @@ public class AdminHome {
         return "gymPassInventory";
     }
 
+    /**
+     * Request mapping method for client management page. Adds list of clients to spring model.
+     */
     @RequestMapping("/client")
     public String clientManagement(Model model) {
 

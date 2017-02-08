@@ -19,6 +19,10 @@ public class PassOrderDaoImpl implements PassOrderDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Add new pass order to database. Payment record is also saved in db.
+     * @param passOrder new pass order
+     */
     public void addPassOrder(PassOrder passOrder) {
         Session session = sessionFactory.getCurrentSession();
         Payment payment = passOrder.getPayment();

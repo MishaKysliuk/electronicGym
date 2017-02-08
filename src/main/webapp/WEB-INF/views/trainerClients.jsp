@@ -10,17 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="/WEB-INF/views/template/header.jsp" %>
 
-<script>
-    $(document).ready(function () {
-        var searchCondition = '${searchCondition}';
-
-        $('.table').DataTable({
-            "lengthMenu": [[2, 3, 5, 10, -1], [2, 3, 5, 10, "All"]],
-            "oSearch": {"sSearch": searchCondition}
-        });
-    });
-
-</script>
+<script src="<c:url value="/resources/js/dataTable.js" /> "></script>
 
 <div class="container-wrapper">
     <div class="container">
@@ -30,7 +20,7 @@
             <p class="lead">Manage your training with clients here!</p>
         </div>
 
-        <table class="table table-striped table-hover">
+        <table id="data-table" class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
                 <th>Name</th>

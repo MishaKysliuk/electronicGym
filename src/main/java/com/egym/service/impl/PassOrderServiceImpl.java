@@ -15,6 +15,10 @@ public class PassOrderServiceImpl implements PassOrderService {
     @Autowired
     private PassOrderDao passOrderDao;
 
+    /**
+     * Add new pass order to database. Payment record is also saved in db.
+     * @param passOrder new pass order
+     */
     public void addPassOrder(PassOrder passOrder) {
         passOrderDao.addPassOrder(passOrder);
     }

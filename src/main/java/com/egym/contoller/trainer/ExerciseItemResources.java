@@ -31,11 +31,17 @@ public class ExerciseItemResources {
     @Autowired
     private WorkoutService workoutService;
 
+
+    /**
+     * Refreshes list of exercise items and then sends it back to angular js part.
+     * @param exerciseId id of chosen exercise
+     * @param itemList list of exercise items that we got from angular js part
+     * @return The refreshed list of exercise items that will be sent to angular js part
+     */
     @RequestMapping("/add/{exerciseId}")
     public @ResponseBody
     List<ExerciseItem> addItem (@PathVariable(value = "exerciseId") int exerciseId,
-                                @RequestBody List<ExerciseItem> itemList,
-                                @RequestParam("clientId") int clientId) {
+                                @RequestBody List<ExerciseItem> itemList) {
         List<ExerciseItem> result;
         if(itemList != null)
             result = new ArrayList<ExerciseItem>(itemList);
@@ -43,11 +49,16 @@ public class ExerciseItemResources {
             result = new ArrayList<ExerciseItem>();
         ExerciseItem newItem = new ExerciseItem();
         newItem.setExercise(exerciseService.getExerciseById(exerciseId));
-        Client client = clientService.getClientById(clientId);
         result.add(newItem);
         return result;
     }
 
+    /**
+     * POST method for saving workout. Workout is saved into database.
+     * @param clientId id of client
+     * @param durationInSec duration of workout
+     * @param itemList item list from angular js part
+     */
     @RequestMapping(value = "/saveWorkout", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void saveWorkout(@RequestParam("clientId") int clientId, @RequestParam("duration") int durationInSec, @RequestBody List<ExerciseItem> itemList){
@@ -64,12 +75,20 @@ public class ExerciseItemResources {
 
     }
 
+    /**
+     * init method for angular js part
+     * @return empty array list of exercise items
+     */
     @RequestMapping("/init")
     public @ResponseBody
     List<ExerciseItem> init () {
         return new ArrayList<ExerciseItem>();
     }
 
+    /**
+     * Sends list of exercises to angular js part
+     * @return list of exercises
+     */
     @RequestMapping("/getExercises")
     public @ResponseBody
     List<Exercise> getExercises(){

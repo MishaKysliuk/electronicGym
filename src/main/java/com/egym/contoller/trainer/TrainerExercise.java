@@ -39,6 +39,9 @@ public class TrainerExercise {
 
     private Path path;
 
+    /**
+     * Request mapping for exercise list page. Exercises and exercise categories are added to spring model.
+     */
     @RequestMapping("")
     public String exerciseList(Model model){
         List<ExerciseCategory> categoryList = exerciseCategoryService.getExerciseCategoryList();
@@ -48,6 +51,9 @@ public class TrainerExercise {
         return "exerciseList";
     }
 
+    /**
+     * Request mapping for adding exercise. Exercise categories is added to spring model.
+     */
     @RequestMapping("/addExercise")
     public String addExercise(Model model){
         Exercise exercise = new Exercise();
@@ -58,6 +64,12 @@ public class TrainerExercise {
         return "addExercise";
     }
 
+    /**
+     * POST method for adding exercise. Exercise is saved into database and its image is saved to local directory.
+     * @param exercise Exercise from spring model
+     * @param result binding result from validation
+     * @param request http servlet reques
+     */
     @RequestMapping(value = "/addExercise", method = RequestMethod.POST)
     public String addExercise(@Valid @ModelAttribute("exercise") Exercise exercise, BindingResult result, HttpServletRequest request){
         if (result.hasErrors()){
@@ -74,6 +86,10 @@ public class TrainerExercise {
         return "redirect:/trainer/exercises";
     }
 
+    /**
+     * Request mapping for editing exercise. Exercise categories is added to spring model.
+     * @param exerciseId id of exercise to be edited
+     */
     @RequestMapping("/editExercise/{exerciseId}")
     public String editGymPass(@PathVariable int exerciseId, Model model){
         Exercise exercise = exerciseService.getExerciseById(exerciseId);
@@ -84,6 +100,12 @@ public class TrainerExercise {
         return "editExercise";
     }
 
+    /**
+     * POST method for editing exercise. Exercise is saved into database and its image is saved into local directory.
+     * @param exercise exercise from spring model
+     * @param result binding result from validation
+     * @param request http servlet request
+     */
     @RequestMapping(value = "/editExercise/{exerciseId}", method = RequestMethod.POST)
     public String editGymPass(@Valid @ModelAttribute("exercise") Exercise exercise, BindingResult result, Model model, HttpServletRequest request){
         if (result.hasErrors()){
@@ -97,6 +119,11 @@ public class TrainerExercise {
         return "redirect:/trainer/exercises";
     }
 
+    /**
+     * Deletes exercise from database and deletes its image from local directory.
+     * @param exerciseId id of exercise to be deleted
+     * @param request http servlet request
+     */
     @RequestMapping("/deleteExercise/{exerciseId}")
     public String deleteGymPass(@PathVariable int exerciseId, Model model, HttpServletRequest request){
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");

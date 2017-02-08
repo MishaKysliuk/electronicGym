@@ -23,6 +23,9 @@ public class RegisterController {
     @Autowired
     private ClientService clientService;
 
+    /**
+     * Request mapping for client register page.
+     */
     @RequestMapping("/register")
     public String registerCustomer(Model model) {
 
@@ -34,6 +37,12 @@ public class RegisterController {
 
     }
 
+    /**
+     * POST method for client registration. If the email or username is already existed, the appropriate message is shown.
+     * Client info is saved into database.
+     * @param client client from spring model
+     * @param result bindin result from validation
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerCustomerPost(@Valid @ModelAttribute("client") Client client, BindingResult result, Model model) {
 

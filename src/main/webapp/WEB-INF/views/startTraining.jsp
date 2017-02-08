@@ -20,28 +20,7 @@
 
 <script src="<c:url value="/resources/js/clientTrainingTimeController.js" /> "></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-        $('#timepicker').timepicker({
-            'minTime': '10:00',
-            'maxTime': '22:00',
-            'showDuration': true,
-            'timeFormat': 'H:i',
-            'show2400': true,
-            'step': 60
-        });
-
-        $("#datepicker").datepicker({
-            dateFormat: "dd-mm-yy",
-            minDate: 0,
-            onSelect: function(dateText) {
-                var scope = angular.element(document.querySelector('[ng-controller="clientTrainingTimeCtrl"]')).scope();
-                scope.updateData(dateText);
-            }
-        });
-    });
-</script>
+<script src="<c:url value="/resources/js/dateTimePickers.js" /> "></script>
 
 <div class="container-wrapper">
     <div class="container">

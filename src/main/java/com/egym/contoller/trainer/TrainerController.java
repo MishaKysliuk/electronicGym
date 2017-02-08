@@ -38,6 +38,10 @@ public class TrainerController {
 
     private Path path;
 
+    /**
+     * Request mapping for trainer personal info page. If info was saved the appropriate text is shown.
+     * @param savedSuccessful Not null if info was saved
+     */
     @RequestMapping("/trainerPersonalInfo")
     public String editGymPass(@RequestParam(value = "savedSuccessful", required = false) String savedSuccessful,
                               Model model, @AuthenticationPrincipal User activeUser){
@@ -52,6 +56,12 @@ public class TrainerController {
         return "trainerPersonalInfo";
     }
 
+    /**
+     * POST method for saving trainer personal info. Refreshes the info of trainer and saves his image to local directory.
+     * @param trainer trainer from spring model
+     * @param result binding result from validation
+     * @param request http servlet request
+     */
     @RequestMapping(value = "/trainerPersonalInfo", method = RequestMethod.POST)
     public String editGymPass(@Valid @ModelAttribute("trainer") Trainer trainer, BindingResult result, Model model,
                               @AuthenticationPrincipal User activeUser, HttpServletRequest request){
@@ -68,6 +78,9 @@ public class TrainerController {
         return "redirect:/trainer/trainerPersonalInfo?savedSuccessful";
     }
 
+    /**
+     * Requst mapping for trainer clients page. Adds trainer's clients list o spring model.
+     */
     @RequestMapping("/trainerClients")
     public String trainerClients(Model model, @AuthenticationPrincipal User activeUser){
         Trainer trainer = trainerService.getTrainerByUsername(activeUser.getUsername());
@@ -75,6 +88,11 @@ public class TrainerController {
         model.addAttribute("clientList", clientList);
         return "trainerClients";
     }
+
+    /**
+     * Request mapping for client info page.
+     * @param clientId id of client to be shown
+     */
     @RequestMapping("/clientInfo/{clientId}")
     public String clientInfo(@PathVariable int clientId, Model model){
         Client client = clientService.getClientById(clientId);
@@ -82,6 +100,10 @@ public class TrainerController {
         return "clientInfo";
     }
 
+    /**
+     * Request mapping for creating training page. Exercise list is added to spring model
+     * @param clientId id of client we make training for
+     */
     @RequestMapping("/makeTraining/{clientId}")
     public String makeTraining(@PathVariable int clientId, Model model){
         List<Exercise> exerciseList = exerciseService.getExerciseList();

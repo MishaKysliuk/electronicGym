@@ -22,12 +22,21 @@ public class ExerciseItemDaoImpl implements ExerciseItemDao{
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Add new exercise item to database
+     * @param exerciseItem new exercise item
+     */
     public void addExerciseItem(ExerciseItem exerciseItem) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(exerciseItem);
         session.flush();
     }
 
+    /**
+     * Retrieve exercise items from database by workout id
+     * @param workoutId workoutId of exercise items
+     * @return list of exercise items
+     */
     public List<ExerciseItem> getItemsByWorkoutId(int workoutId) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from ExerciseItem where workoutId = ?");
@@ -36,12 +45,20 @@ public class ExerciseItemDaoImpl implements ExerciseItemDao{
         return items;
     }
 
+    /**
+     * Remove exercise item from database
+     * @param exerciseItem item to be removed
+     */
     public void removeExerciseItem(ExerciseItem exerciseItem) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(exerciseItem);
         session.flush();
     }
 
+    /**
+     * Edit existed exercise item in database
+     * @param exerciseItem existed item
+     */
     public void editExerciseItem(ExerciseItem exerciseItem) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(exerciseItem);

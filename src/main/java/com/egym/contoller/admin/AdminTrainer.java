@@ -28,6 +28,9 @@ public class AdminTrainer {
     @Autowired
     private TrainerService trainerService;
 
+    /**
+     * Request mapping method for registering trainer. Adds trainer object to spring model
+     */
     @RequestMapping("/registerTrainer")
     public String registerTrainer(Model model){
         Trainer trainer = new Trainer();
@@ -36,6 +39,11 @@ public class AdminTrainer {
         return "registerTrainer";
     }
 
+    /**
+     * POST method for registering trainer. Checks whether data is valid and then saves data into database.
+     * @param trainer trainer from model
+     * @param result binding result from validation
+     */
     @RequestMapping(value = "/registerTrainer", method = RequestMethod.POST)
     public String registerTrainer(@Valid @ModelAttribute("trainer") Trainer trainer, BindingResult result, Model model){
 
@@ -64,6 +72,9 @@ public class AdminTrainer {
         return "redirect:/admin/trainer";
     }
 
+    /**
+     * Request mapping method for trainer management page. Adds trainer list to spring model.
+     */
     @RequestMapping("/trainer")
     public String trainerManagement(Model model) {
 

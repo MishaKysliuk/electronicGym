@@ -30,6 +30,10 @@ public class TrainerListController {
     @Autowired
     private TrainerService trainerService;
 
+    /**
+     * Request mapping for trainer list page. If client is logged in and has np gym pass the appropriate message is shown.
+     * The list of trainers is added to spring model. If client has already got a trainer, he would be added to spring model.
+     */
     @RequestMapping("/trainers")
     public String clientTrainer(Model model, @AuthenticationPrincipal User activeUser){
 
@@ -52,6 +56,10 @@ public class TrainerListController {
         return "trainers";
     }
 
+    /**
+     * Request mapping for trainer info page.
+     * @param trainerId id of trainer to be shown
+     */
     @RequestMapping("/trainers/viewTrainer/{trainerId}")
     public String viewTrainer(@PathVariable int trainerId, Model model) {
         Trainer trainer = trainerService.getTrainerById(trainerId);
@@ -60,6 +68,10 @@ public class TrainerListController {
         return "viewTrainer";
     }
 
+    /**
+     * Choosing trainer method. Client and trainer data into database is refreshed.
+     * @param trainerId id of chosen trainer
+     */
     @RequestMapping("/trainers/{trainerId}")
     public String chooseTrainer(@PathVariable int trainerId, Model model, @AuthenticationPrincipal User activeUser) {
 
